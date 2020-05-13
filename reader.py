@@ -7,10 +7,18 @@ def main(file_name, file_encoding):
     with open(file_name, encoding=file_encoding, errors='replace') as f:
         lines = f.readlines()
         f.close()
-        clean(lines)
+        out = clean(lines)
+        file_name = "texts/" + file_name[5:-4] + ".txt"
+        f = open(file_name, "w+")
+        for line in out:
+            f.write(line)
+        f.close()
 
-def match(a):
-    return not bool(re.compile(r'[A-Za-z0-9.]').search)
+
+
+
+def namestr(obj, namespace):
+    return [name for name in namespace if namespace[name] is obj]
 
 
 def clean(lines):
@@ -22,9 +30,8 @@ def clean(lines):
         elif "-->" not in a:
             if len(a) > 1:
                 newlines.append(re.sub("<\/?i>", "", a))
-
-    for lines in newlines:
-        print(lines)
+    return newlines
 
 
-main("the-avengers-en1.srt", 'utf-8')
+
+main("subs/the-avengers-en1.srt", 'utf-8')
